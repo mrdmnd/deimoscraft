@@ -1,5 +1,5 @@
 ---
-layout: index
+layout: default
 ---
 # Deimos' Advanced Unholy DK - Visual Guide
 
