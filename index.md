@@ -1,8 +1,6 @@
 ---
 layout: default
 ---
-# Deimos' Advanced Unholy DK - Visual Guide
-
 An up-to-date (as of April, 2016, patch 6.2.3) guide for intermediate/advanced Unholy Death Knight DPS players.
 
 ## About the Author
