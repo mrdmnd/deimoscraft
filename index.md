@@ -1,21 +1,24 @@
 ---
 layout: default
 ---
-An up-to-date (as of April, 2016, patch 6.2.3) guide for intermediate/advanced Unholy Death Knight DPS players.
+An up-to-date guide (as of April, 2016 - patch 6.2.3) for intermediate/advanced Unholy Death Knight DPS players in Hellfire Citadel heroic/mythic content.
 
 ## About the Author
+Deïmos (Matt Redmond) is a 24 year old data scientist with a background in computer science and mathematics.
+He is the current (end-of-WoD / beginning-of-legion) SimulationCraft Death Knight engine maintainer.
+Deïmos has played various classes on-and-off since the Gates of Ahn'Qiraj opened on his original server, but settled on a Death Knight main around Cataclysm.
+Currently, he raids with a group of Australians at 300 ping on Oceanic servers, but lives in California.
 
-I'm a 24 year old statistican with a background in computer science and mathematics. This guide has some CS-inspired notation. Friendly warning.
-I've played a DK main since Wrath of the Lich King. I'm currently the SimulationCraft Death Knight maintainer.
-I raid with a bunch of Australians over on Aman'Thul, but live in California. Enough about me.
+You can contact him most easily through the Acherus IRC channel, or it's [Discord link](https://discordapp.com/channels/118342632215674881/118342632215674881)
 
 ## Audience, assumptions, and goals
 
-This is *not* an introductory guide. This is *not* a levelling guide. 
-This is *not* a guide for that DK alt you play sometimes, but aren't really interested in min/maxing.
+This is *not* an introductory guide. 
+This is *not* a levelling guide. 
+This is *not* a guide for that random DK alt you play sometimes, but aren't really interested in playing optimally.
 
 This *is* a guide designed for current upper-heroic to mythic level raiders with an interest in pushing progression,
-fighting for rankings on WarcraftLogs, and mastering the nuances of an incredibly rewarding/punishing/delightful spec.
+fighting for rankings on farm, and mastering the nuances of an incredibly rewarding/punishing/delightful spec.
 
 This document represents a collection of heuristics, guidelines, facts, and pure/applied math that should inform
 DK decision making during raid encounters. I'll attempt to call out particularly complex corner cases as they crop up, 
