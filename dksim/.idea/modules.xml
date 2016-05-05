@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dksim.iml" filepath="$PROJECT_DIR$/.idea/modules/dksim.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dksim-build.iml" filepath="$PROJECT_DIR$/.idea/modules/dksim-build.iml" />
+    </modules>
+  </component>
+</project>
