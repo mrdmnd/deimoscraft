@@ -4,7 +4,7 @@
 		module="dksim$sources_2.11"
 		revision="1.0"
 		status="integration"
-		publication="20160426005123"
+		publication="20160505235646"
 	/>
 	<configurations>
 		<conf name="compile" visibility="public" description=""/>

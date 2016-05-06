@@ -7,4 +7,14 @@ object Main {
 
   }
 
+  def initialState(talentCalcUrl: String): state.State = {
+    val data = talentCalcUrl.substring(talentCalcUrl.indexOf("#")+1)
+    assert(data.startsWith("d"))
+    val spec: Spec = data.charAt(1) match {
+      case 'b' => Unholy
+      case 'a' => Blood
+      case 'Z' => Frost
+    }
+  }
+
 }

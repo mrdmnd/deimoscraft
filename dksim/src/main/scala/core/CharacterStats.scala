@@ -6,6 +6,4 @@ class CharacterStats(attackPower: Int,
                      crit: Int,
                      multistrike: Int,
                      versatility: Int,
-                     meleeAttackSpeed: Double) {
-
-}
+                     meleeAttackSpeed: Double)
