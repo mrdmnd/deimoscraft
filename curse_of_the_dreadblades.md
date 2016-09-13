@@ -84,12 +84,16 @@ The mean energy cost is the weighted sum
 
 `415*[(1-p)^5] + 365*[4*p(1-p)^3 + p(1-p)^4] + 315*[3*p^2(1-p) + 3*p^2(1-p)^2] + 265*[p^3]`
 
+![alt text](https://dl.dropbox.com/s/tir63kaedozo1q7/Screenshot%202016-09-13%2012.03.43.png?dl=0, "A plot of sequence energy cost as a function of saber slash proc probability.")
+
 Mean energy (no swordmaster, no jolly roger): 346.8
+
 Mean energy (   swordmaster, no jolly roger): 332.5
+
 Mean energy (no swordmaster,    jolly roger): 296.5
+
 Mean energy (   swordmaster,    jolly roger): 284.9
 
-![alt text](https://dl.dropbox.com/s/tir63kaedozo1q7/Screenshot%202016-09-13%2012.03.43.png?dl=0, "A plot of sequence energy cost as a function of saber slash proc probability.")
 
 The most expensive scenario is the 415 energy consuming sequence (straight SS -> RT spam).
 
@@ -165,11 +169,11 @@ Looking at the "worst case RNG" with AR up, we see that it costs us 561 energy i
 
 If you just have AR, you'd want to pool 561 - 460 = ~100 energy before casting COTD.
 
-You can even get away with pooling less energy if you have Buried Treasure or Grand Melee (or both) up.
+You can even get away with pooling less energy if you have Buried Treasure or Grand Melee up.
 
 If you have GM+AR, you'd want to pool 561 - 501 = 60 energy before casting COTD.
 
-If you have BT+AR, you don't have to pool at all, because the expected 604 energy gained exceeds the 561 necessary. 
+If you have BT+AR, you don't have to pool at all, because the expected 604 energy gained exceeds the 561 necessary to perform the sequence.
 
 Takeaway: if you have Adrenaline Rush active for the entirety of your COTD window, you can basically chain-cast SS into RT with a small amount of pooling.
 
@@ -214,7 +218,7 @@ If you have SM + JR, the probability of seeing at least two procs in five slashe
 
 Baseline: Pool to 100. Pray for two slash procs.
 
-BT: Pool to 100, don't need procs. Or pool to less energy, and live dangerously. Your call. You picked the Outlaw Rogue, might as well #yolo it up.
+BT: Pool to 87, don't need procs. Or pool to less energy, and live dangerously. Your call. You picked the Outlaw Rogue, might as well #yolo it up.
 
 GM: Pool to 100. Pray for one slash proc.
 
