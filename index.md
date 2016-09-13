@@ -50,3 +50,4 @@ and use it to determine exactly what action to input next.
 
 A very large portion of this blog/site is dedicated to specifying exactly why the logic of each spec's IdentifyBestAction function is the way it is. 
 This function encapsulates what is traditionally known as the "APL", or "Action Priority List."
+[Test Link](curse_of_the_dreadblades.md)
