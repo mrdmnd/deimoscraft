@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: Blog Introduction
 ---
 Musings from a SimC committer and melee DPS theorycrafter.
