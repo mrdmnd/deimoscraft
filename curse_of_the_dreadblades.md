@@ -13,16 +13,15 @@ The plan, of course, is that we want to fit as many buffed builders into the COT
 
 First, some basics: without Adrenaline Rush (AR) active, our GCD is 1.0 seconds. With Adrenaline Rush up, the GCD is reduced to 0.8 seconds.
 That means that we'll fit 12 GCDs into COTD without AR, and 15 GCDs with it (if it's active for the whole duration, like on the pull).
-We'll investigate (later) what happens if AR covers part of the COTD window but not all of it.
 
 Saber Slash (SS) costs 50 energy at all times; Pistol Shot (PS) costs 40 energy if you don't have an opportunity proc, and zero energy if you do.
 
 For now, our goal is to get as many buffed builders as possible into that COTD window. Let's look at the energy cost for our builders and finishers.
 With the appropriate points in your artifact, finishers will cost 12 energy less.
-Relics can further decrease their energy cost (we'll investigate that case later), but for now, let's assume a 12 energy cost reduction.
+Relics can further decrease their energy cost (we'll revisit that case later), but for now, let's assume a 12 energy cost reduction.
 This means that you will have Roll the Bones (RTB) cost you 13 energy, and Run Through (RT) cost you 23 energy.
 
-You definitely want to enter the COTD window immediately after casting a finisher, because you want to enter at low-combo points to maximize the relative gain.
+You want to enter the COTD window immediately after casting a finisher, because you want to start at low combo points to maximize the relative gain.
 
 ## COTD Window Sequencing and Energy Demands
 We'll call the zero-cost PS `fPS` for "free" PS.
@@ -31,10 +30,16 @@ With AR down, we have twelve globals in the COTD window, but we're really only c
 it's okay for the last finisher to end up outside the window, because there's no special damage bonus; just a combo-point boost for builders.
 
 All else equal, we prefer the sequences that have more Saber Slashes than Pistol Shots, because Saber Slash does more base damage than Pistol Shot does.
-We only want to incorporate Pistol Shot into our COTD window if we will be unable to have enough energy to get six finishers out (or more, with AR).
+We only want to incorporate Pistol Shot into our COTD window if we will be unable to have enough energy to get six finishers out (seven, with AR).
+
+With respect to finishers: if you have no beneficial damage procs up, "a combo point is a combo point", and it makes no difference if you spend CP on 
+Run Through or Roll the Bones (RTB is a bit cheaper, energy-wise, which makes a small difference.)
+
+Heuristically (NOT validated with simulation), I'd imagine that it's a DPS loss to use combo points for Roll the Bones during the opener, when you are likely to have trinket procs and a pre-pot up.
+During Curse of the Dreadblade windows outside of the opener (or big damage procs), it's fine to case Roll the Bones. 
 
 ### Full Case Analysis
-Let p = probability of a saber slash proc.
+Let `p = `probability of a saber slash proc.
 `p = 0.35` by default. With Swordmaster talent, `p += 0.10`. With Jolly Roger buff, `p += 0.40`.
 
 The average case is a bit more complicated: here are all possible sequences, and their energy costs, along with their probabilities.
@@ -84,6 +89,8 @@ Mean energy (   swordmaster, no jolly roger): 332.5
 Mean energy (no swordmaster,    jolly roger): 296.5
 Mean energy (   swordmaster,    jolly roger): 284.9
 
+![alt text](energy_cost.png, "A plot of sequence energy cost as a function of saber slash proc probability.")
+
 The most expensive scenario is the 415 energy consuming sequence (straight SS -> RT spam).
 
 ### With AR
@@ -91,17 +98,17 @@ With AR up, we have 15 globals in the COTD window, so we're regenerating energy 
 
 The sequence that requires the *most* energy with AR is
 
-`SS, RT, SS, RT, SS, RT, SS, RT, SS, RT, SS, RT, SS, RT, SS` -
+`SS, RT, SS, RT, SS, RT, SS, RT, SS, RT, SS, RT, SS, RT, SS`
 
-this sequence costs 50x8 + 23x7 = 561 energy.
+This sequence costs 50x8 + 23x7 = 561 energy.
 
 The sequence that requires the *least* energy with AR is
 
-`SS, RT, fPS, RT, SS, RT, fPS, RT, SS, RT, fPS, RT, SS, RT, fPS` -
+`SS, RT, fPS, RT, SS, RT, fPS, RT, SS, RT, fPS, RT, SS, RT, fPS`
 
-this sequence costs 50x4 + 23x7 + 0x4 = 361 energy.
+This sequence costs 50x4 + 23x7 + 0x4 = 361 energy.
 
-Doing a full case analysis would show combinatorial explosion here, though a dedicated reader could easily replicate the logic from the section above.
+Doing a full case analysis would demonstrate combinatorial explosion here, though a dedicated reader could easily replicate the logic from the section above.
 
 ## Energy Regeneration
 So let's look at energy regeneration to see which sequences are feasible, as a function of which buffs you have:
@@ -169,6 +176,7 @@ Takeaway: if you have Adrenaline Rush active for the entirety of your COTD windo
 ## No AR
 Let's suppose it's the middle of the fight, and you don't have Adrenaline Rush ready. How should you use Curse?
 The "worst case RNG" without AR costs us 415 energy in 11 globals.
+The "mean case" without AR costs us 346 energy, (or less, depending on jolly roger buff and swordmaster talent -- see above for exact values).
 
 If you have Buried Treasure and Grand Melee up, you should pool to 415- (369.6) = 53.4 energy. This ensures that you can chain cast SS + RT.
 
@@ -202,11 +210,11 @@ If you have jolly roger, the probability of seeing at least two procs in five sl
 
 If you have SM + JR, the probability of seeing at least two procs in five slashes is 99.7%
 
-### A summary of how to pool:
+### A summary of results:
 
-Base: Pool to 100. Pray for two slash procs.
+Baseline: Pool to 100. Pray for two slash procs.
 
-BT: Pool to 100, don't need procs.
+BT: Pool to 100, don't need procs. Or pool to less energy, and live dangerously. Your call. You picked the Outlaw Rogue, might as well #yolo it up.
 
 GM: Pool to 100. Pray for one slash proc.
 
@@ -220,11 +228,15 @@ GM+AR: Pool to 60.
 
 BT+GM+AR: No pooling needed.
 
-TODO:
 
+
+## TODO:
 - How do relics affect math? Decreased cost of finishing moves is huge here.
 
 - Analyze the case where BT/GM/AR cover part of the window, but not all of it.
+
+- Analyze the cases with Blade Flurry up
+
 
 Outstanding questions for the TC community:
 
@@ -235,4 +247,3 @@ Outstanding questions for the TC community:
   - Cons: it's relative value above replacement action is reduced, because a standard SS or PS will do exactly the same job, and those don't have a cooldown.
 
 - You could conceivably abuse the fact that we almost never have a procless string of five saber slashes in a row to lower the amount of energy pooled.
-  We should figure out the "average case" sequence for COTD (and its corresponding energy costs) and re-do the math in this post.
