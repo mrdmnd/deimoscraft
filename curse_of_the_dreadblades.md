@@ -89,7 +89,7 @@ Mean energy (   swordmaster, no jolly roger): 332.5
 Mean energy (no swordmaster,    jolly roger): 296.5
 Mean energy (   swordmaster,    jolly roger): 284.9
 
-![alt text](energy_cost.png, "A plot of sequence energy cost as a function of saber slash proc probability.")
+![alt text](https://dl.dropbox.com/s/tir63kaedozo1q7/Screenshot%202016-09-13%2012.03.43.png?dl=0, "A plot of sequence energy cost as a function of saber slash proc probability.")
 
 The most expensive scenario is the 415 energy consuming sequence (straight SS -> RT spam).
 
