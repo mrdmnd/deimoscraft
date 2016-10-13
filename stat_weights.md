@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Comparing Stat Weights: SimC vs. AMR
+title: Comparing Stat Weights - SimC vs. AMR
 ---
 
 # How do Stat Weights work?
