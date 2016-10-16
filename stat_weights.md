@@ -154,6 +154,7 @@ your dps for given talents, artifact ranks, encounters, and policies.
 
 
 Here's how SimulationCraft approaches this problem:
+
 ## Simulationcraft's Approach to Stat Weights
 In a nutshell, Simulationcraft uses the ["Finite Difference Method"](https://en.wikipedia.org/wiki/Finite_difference_method) to compute stat weights:
 
@@ -170,15 +171,36 @@ Then, for each stat you want to compute weights over, it "perturbs"
 those stats by a delta (both up, and down, given the use of the
 "centered" option). Right now, the deltas default to 1333 points.
 
+It then takes the average of those values, and divides by the delta to
+get an approximation of the partial derivative of the DPS function with
+regard to each stat, evaluated at the current gear set.
+
 Effectively, simulationcraft represent stat weights as the partial
 derivative of the DPS function with regard to each stat (this is known
-as "The Jacobian".
+as the "Jacobian" in mathematical literature.
+
+This has the advantage of being fast to compute (we're only simulating
+three "gearset points" - base, base + delta, and base - delta), but also
+subject to inaccuracies, depending on how you choose the value of delta.
+Choose the value too large and you start linearizing a function over a
+range in which it is definitely not linar. Choose too small and you find
+yourself over-reporting the difference, due to division by a small
+value.
+
+SimC has been known to be subject to "scaling noise" where the delta
+chosen is too big (or too small) to capture true partial derivative
+information. If you really want to use the simulationcraft scaling
+correctly, you should be using the "plotting" functionality, which will
+consider a great deal more than just `stat` plus or minus delta.
+
+
+Simulationcraft could improve the accuracy of our finite difference approach by using a higher-order approximation:
+a four point or six point method might be worth the speed tradeoff.
 
 ## Ask Mr. Robot's Approach to Stat Weights
-AMR takes a slightly different approach - the fundamental difference is how
-many points they sample.
+AMR takes a slightly different approach.
 
-AMR computes stat weights by considering a region of potential gear
+AMR computes stat weights by considering a *region* of potential gear
 sets in the neighborhood of your current gear set (the size of this
 region can be controlled). It samples points (each point is a distinct
 set of gear) from this region and simulates each of these, coming up
@@ -194,47 +216,57 @@ This results in a sequence of equations:
 
 The next part is not 100% clear to me, as the exact model is closed
 source, but after speaking with the implementors, it seems to be the
-case that they expand this DPS function and approximate it as a linear
-model:
+case that they approximate DPS it as a linear combination of weights
+with gear stats, and run linear regression to identify the optimal set
+of weights that minimizes the sum of squared error to the DPS values
+simulated.
 
     AMR_DPS_predicted( gearset ) = <weights> * <gearset_stats>
 
-This results in an overconstrained set of equations, which can be
-solved with the [standard method](https://en.wikipedia.org/wiki/Linear_least_squares_(mathematics)) (least squares minimization) to identify
-the optimal set of weights that explains the most variance over the
-gearsets sampled from that region.
+This results in an overconstrained set of equations
 
     <weights> * <gearset_1> = Predicted_DPS_1
     <weights> * <gearset_2> = Predicted_DPS_2
     ....
 
-# Takeaways
-The Simcraft method approximates stat weights at a *single* point in
-"gearset" space by numerically approximating the Jacobian of the DPS
-function with central finite difference methods.
+which can be
+solved with the [standard method](https://en.wikipedia.org/wiki/Linear_least_squares_(mathematics)) (least squares minimization) to identify
+the optimal set of weights over that region.
 
-The AMR method approximates stat weights by finding the vector that
-optimally captures the DPS for a *large* number of points in "gearset"
+# Takeaways
+The Simcraft method computes stat weights at a *single* point in
+"gearset" space (your current gear) by numerically approximating the Jacobian of the DPS
+function with a width-two first order central finite difference method.
+
+The AMR method computes stat weights by finding the weight vector that
+optimally predicts simulated DPS for a *large* number of points in "gearset"
 space surrounding your current gear set. The size of this search region
 can be controlled by constraining what gear you'd like to make available
-to your character.
+to your character for upgrades.
 
 In my opinion, the Simulationcraft default method is a reasonable tool
 to use for "point in time" stat weights, but the AMR default method is a
-tool that will (naturally) generalize better (perhaps at the cost of
-exact, local point-in-time accuracy). Because the AMR tool can be told
-to search "gearset" points that are arbitrarily close to your current
+tool that will (naturally) generalize better - perhaps at the cost of
+exact, local point-in-time accuracy. 
+
+Because the AMR tool can be told
+to search "gearset" regions that are arbitrarily close to your current
 point, it strikes me as a *very* powerful tool that is able to act as a
-superset of the SimC stat weight scaling tool.
+superset of the SimC stat weight scaling tool. Additionally, the AMR
+tool should in theory be capable of producing confidence interval
+bounds on its weight predictions, which is another powerful piece of
+information for players. If I know that my stat confidence intervals
+have wide error bars, I will be less picky in rejecting new gear on the
+basis of stat weights.
 
 Contradictions in weights between the tools can come from many places.
-It is possible that both tools have bugs, which could be responsible for generating such contradictions.
-It is also possible that the computation process differences (described
-above) are also responsible.
+It is possible (and likely) that both tools have subtle bugs, which could be responsible for generating such contradictions.
+It is also possible that the computation process differences (described above) are also responsible.
 
-SimC has been known to be subject to "scaling noise" where the delta
-chosen is too big (or too small) to capture true partial derivative
-information. If you really want to use the simulationcraft scaling
-correctly, you should be using the "plotting" functionality, which will
-consider a great deal more than just `stat` plus or minus delta.
+The AMR simulator is a fantastic addition to the DPS player's quiver,
+and their weights should not be thrown away by the player base as
+"inaccurate" or "misleading" - it is important to understand the
+methodological differences behind planning an "immediate upgrade"
+(simulationcraft) or identifying the core relationship between
+statistics over a set of many upgrades (AMR).
 
